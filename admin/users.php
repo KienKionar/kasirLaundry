@@ -77,9 +77,11 @@ if (isset($_GET['hapus'])) {
 
 $editData = null;
 if (isset($_GET['edit'])) {
-    $stmtE=$conn->prepare("SELECT * FROM users WHERE id=?");
-    $stmtE->bind_param("i",(int)$_GET['edit']); $stmtE->execute();
-    $editData=$stmtE->get_result()->fetch_assoc(); $stmtE->close();
+    $editId = (int)$_GET['edit'];
+    $stmtE = $conn->prepare("SELECT * FROM users WHERE id=?");
+    $stmtE->bind_param("i", $editId);
+    $stmtE->execute();
+    $editData = $stmtE->get_result()->fetch_assoc(); $stmtE->close();
 }
 
 $userList = $conn->query("

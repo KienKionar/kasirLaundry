@@ -49,17 +49,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 // Hapus
 if (isset($_GET['hapus'])) {
+    $hapusId = (int)$_GET['hapus'];
     $stmtDel = $conn->prepare("DELETE FROM shift WHERE id = ?");
-    $stmtDel->bind_param("i", (int)$_GET['hapus']); $stmtDel->execute(); $stmtDel->close();
+    $stmtDel->bind_param("i", $hapusId);
+    $stmtDel->execute();
+    $stmtDel->close();
     $success = "Shift berhasil dihapus.";
 }
 
 // Edit data
 $editData = null;
 if (isset($_GET['edit'])) {
+    $editId = (int)$_GET['edit'];
     $stmtE = $conn->prepare("SELECT * FROM shift WHERE id=?");
-    $stmtE->bind_param("i", (int)$_GET['edit']); $stmtE->execute();
-    $editData = $stmtE->get_result()->fetch_assoc(); $stmtE->close();
+    $stmtE->bind_param("i", $editId);
+    $stmtE->execute();
+    $editData = $stmtE->get_result()->fetch_assoc();
+    $stmtE->close();
 }
 
 // Filter outlet
