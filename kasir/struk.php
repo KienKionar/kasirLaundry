@@ -118,7 +118,10 @@ if (!$trx) die("Transaksi tidak ditemukan.");
         <!-- BARCODE AREA -->
         <div class="barcode-area">
             <svg id="barcodeEl"></svg>
-            <div style="font-size:.7rem;color:#666;margin-top:4px"><?= clean($trx['kode_transaksi']) ?></div>
+            <div class="d-flex justify-content-center align-items-center gap-2 mt-2">
+                <div style="font-size:.7rem;color:#666;"><?= clean($trx['kode_transaksi']) ?></div>
+                <button type="button" class="btn btn-sm btn-outline-primary" id="copyCodeBtn">Salin</button>
+            </div>
             <div style="font-size:.68rem;color:#999">Scan untuk konfirmasi pengambilan</div>
         </div>
 
@@ -132,7 +135,7 @@ if (!$trx) die("Transaksi tidak ditemukan.");
 
 <script>
 // Generate barcode dari kode transaksi
-JsBarcode("#barcodeEl", "<?= clean($trx['kode_transaksi']) ?>", {
+JsBarcode("#barcodeEl", <?= json_encode(clean($trx['kode_transaksi'])) ?>, {
     format:      "CODE128",
     width:       1.8,
     height:      55,
@@ -140,6 +143,15 @@ JsBarcode("#barcodeEl", "<?= clean($trx['kode_transaksi']) ?>", {
     margin:      4,
     background:  "#f9f9f9",
     lineColor:   "#1a2d4e"
+});
+
+document.getElementById('copyCodeBtn').addEventListener('click', function() {
+    const code = <?= json_encode(clean($trx['kode_transaksi'])) ?>;
+    navigator.clipboard.writeText(code).then(() => {
+        const btn = document.getElementById('copyCodeBtn');
+        btn.textContent = 'Tersalin';
+        setTimeout(() => { btn.textContent = 'Salin'; }, 1500);
+    });
 });
 </script>
 </body>

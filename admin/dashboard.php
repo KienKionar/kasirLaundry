@@ -265,7 +265,7 @@ include '../includes/header.php';
     <!-- Layanan Terlaris -->
     <div class="col-md-4">
         <div class="card border-0 shadow-sm h-100">
-            <div class="card-header bg-white fw-semibold"><i class="bi bi-star me-1"></i> Layanan Terlaris</div>
+            <div class="card-header bg-white fw-semibold"><i class="bi bi-star me-1 text-warning"></i> Layanan Terlaris</div>
             <div class="card-body p-0">
                 <table class="table mb-0">
                     <thead><tr><th>Layanan</th><th>Trx</th><th>Omzet</th></tr></thead>
